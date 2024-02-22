@@ -6,7 +6,7 @@ export const Stars = ({ complexity, onStar }: { complexity: string, onStar: (id:
     const level = 'easy';    
 
     const handleStar = (e: MouseEvent<HTMLImageElement>) => {
-        console.log("1st handler", e.target.id);
+        
         onStar(e.target.id);
     }
 
@@ -15,18 +15,18 @@ export const Stars = ({ complexity, onStar }: { complexity: string, onStar: (id:
         {/* biome-ignore lint/a11y/useKeyWithClickEvents: <explanation> */}
         <img
             src={brightStar} id="1" alt="gif"
-            onClick={handleStar}
-            className="h-8" />
+            onClick={handleStar} title="Easy"
+            className="h-8 cursor-pointer" />
         {/* biome-ignore lint/a11y/useKeyWithClickEvents: <explanation> */}
         <img
             src={(Number(complexity)>=2)?brightStar:darkStar} id="2" alt="gif"
-            onClick={handleStar}
-            className="h-8" />
+            onClick={handleStar} title="Normal"
+            className="h-8 cursor-pointer" />
         {/* biome-ignore lint/a11y/useKeyWithClickEvents: <explanation> */}
         <img
             src={(Number(complexity)>=3)?brightStar:darkStar} id="3" alt="gif"
-            onClick={handleStar}
-            className="h-8" />
+            onClick={handleStar} title="Impossible"
+            className="h-8 cursor-pointer" />
     </div>)
 
 }
