@@ -6,6 +6,9 @@ import { Header } from "./Header";
 import { InputArea } from "./InputArea";
 import { LevelSelector } from "./LevelSelector";
 import { Stars } from "./Stars";
+import { DndProvider } from 'react-dnd';
+import { HTML5Backend } from 'react-dnd-html5-backend';
+import { MultiplyTable } from "./MultiplyTable";
 
 type appState = { text: string, eq: string, isRightAnswer: boolean, answer: string, gif: string, level: string, complexity: string }
 
@@ -137,7 +140,9 @@ export function App() {
         <Stars complexity={state.complexity} onStar={handleStar}/>
       </div>
       <InputArea data={{ equation: state.eq, isRight: state.isRightAnswer }} answerHandler={handleAnswer} toggleRight={handleNextButton} />
-    </div>)
+      
+    </div>
+    )
 }
 
 function initQuestion(level = 'easy', complexity = '1') {
