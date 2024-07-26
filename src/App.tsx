@@ -6,6 +6,9 @@ import { Header } from "./Header";
 import { InputArea } from "./InputArea";
 import { LevelSelector } from "./LevelSelector";
 import { Stars } from "./Stars";
+import { DndProvider } from 'react-dnd';
+import { HTML5Backend } from 'react-dnd-html5-backend';
+import { MultiplyTable } from "./MultiplyTable";
 
 type appState = { text: string, eq: string, isRightAnswer: boolean, answer: string, gif: string, level: string, complexity: string }
 
@@ -72,6 +75,22 @@ function reducer(state: appState, action) {
     return { ...state }
   }
 
+  if (action.type === "multiplyTable") {
+    if (state.level !== 'multiply') {
+      const quest = initQuestion('multiply', state.complexity);
+      return {
+        ...state,
+        text: "Скажи же, сколько будет?",
+        eq: quest.equation,
+        isRightAnswer: false,
+        answer: quest.answer.toString(),
+        gif: puzzled,
+        level: 'multiply'
+      }
+    }
+    return { ...state }
+  }
+
   if (action.type === "changeStar") {    
     return {
       ...state,
@@ -123,6 +142,11 @@ export function App() {
     console.log(state.level);
   }
 
+  const handleMultiply = () => {
+    dispatch({ type: 'multiplyTable' });
+    console.log(state.level);
+  }
+
   const handleStar = (value: string) => {    
     dispatch({ type: 'changeStar', payload: value});
   }
@@ -133,11 +157,13 @@ export function App() {
       <div id="question" className="flex relative bg-yellow-100 rounded-lg border-4 border-pink-200 h-24">
         <img src={state.gif} alt="gif" />
         <p className="flex py-6 px-4" >{state.text}</p>
-        <LevelSelector level={state.level} onEasy={handleEasyLevel} onComplex={handleComplexLevel} />
+        <LevelSelector level={state.level} onEasy={handleEasyLevel} onComplex={handleComplexLevel} onMultiply={handleMultiply} />
         <Stars complexity={state.complexity} onStar={handleStar}/>
       </div>
       <InputArea data={{ equation: state.eq, isRight: state.isRightAnswer }} answerHandler={handleAnswer} toggleRight={handleNextButton} />
-    </div>)
+      
+    </div>
+    )
 }
 
 function initQuestion(level = 'easy', complexity = '1') {
@@ -163,6 +189,14 @@ function initQuestion(level = 'easy', complexity = '1') {
     const sign1 = Math.floor(Math.random() * 2);
     const answer = sign1 ? x * y + z : x * y - z;
     const equation = sign1 ? `${x}*${y}+${znad}/${d}` : `${x}*${y}-${znad}/${d}`;
+    return { equation, answer };
+  }
+  
+  if (level === 'multiply') {
+    const x = Math.floor(Math.random() * 4) + delta*2 + 1;
+    const y = Math.floor(Math.random() * 8) + 3;    
+    const answer = x * y;
+    const equation = `${x}*${y}`;
     return { equation, answer };
   }
 

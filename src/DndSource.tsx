@@ -13,14 +13,17 @@ import pngMinus from "../static/numbers/minus.png";
 import pngMultiply from "../static/numbers/multiply.png";
 import pngDivide from "../static/numbers/divide.png";
 import pngEquals from "../static/numbers/equals.png";
+import { useDrag } from 'react-dnd'
 
 const pngFiles = [png0, png1, png2, png3, png4, png5, png6, png7, png8, png9];
 
 
-export const Equation = ({ equation, size='60' }: { equation: string, size: string }) => {
+export const DndSource = ({ equation }: { equation: string }) => {
+
 
     const listIms = equation.split("").map((el, index) => {
         let imgSrc = '';
+        
         if ("1234567890".includes(el)) imgSrc = pngFiles[Number(el)];
 
         if (el === '+') imgSrc = pngPlus;
@@ -32,9 +35,15 @@ export const Equation = ({ equation, size='60' }: { equation: string, size: stri
         if (el === '*') imgSrc = pngMultiply;
 
         if (el === '/') imgSrc = pngDivide;
+        const [{isDragging}, drag] = useDrag(() => ({
+            type: "image",
+            collect: monitor => ({
+              isDragging: !!monitor.isDragging(),
+            }),
+          }))
 
         // biome-ignore lint/suspicious/noArrayIndexKey: <explanation>
-        return <img src={imgSrc} width={Number(size)} height={Number(size)} alt="number" key={index} id={index.toString()} />
+        return <img ref={drag} src={imgSrc} width="60" height="60" alt="number" key={index} id={index.toString()} />
 
     });
 
