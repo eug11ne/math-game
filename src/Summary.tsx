@@ -1,5 +1,6 @@
 import { KeyboardEvent, ChangeEvent, useState } from "react";
 import { appState } from "./App"
+import { speak } from "./App"
 
 type SummaryAreaProps = {
     score: number,
@@ -15,8 +16,8 @@ export const Summary = ({ score, resetGame }: SummaryAreaProps) => {
     let howmuch = '';
     switch(score) {
         case 0:
-            howmuch = 'Увы, ты не ответил ни на один из вопросов.';
-            reply = 'Видимо ты думал совсем не тем местом, которым нужно думать. Запомни, что думать нужно головой!'; 
+            howmuch = 'Эх ты. Ни одного правильного ответа. Как же так?';
+            reply = 'Видимо ты думал совсем не тем местом. Запомни, что думать нужно головой!'; 
             break;
         case 1:
             howmuch = 'Всего лишь один правильный ответ?';
@@ -35,10 +36,12 @@ export const Summary = ({ score, resetGame }: SummaryAreaProps) => {
             reply = 'Почти все правильно посчитал. Неплохо конечно, но еще есть к чему стремиться!';
             break;
         case 5:
-            howmuch = 'Пять из пяти!';
+            howmuch = 'Браво! Пять из пяти!';
             reply = 'Все ответы совпали с мнением СуперМегаВычислителя, а значит ты СуперМегаКрасавчик!';
             break;        
     }
+    speak(howmuch);
+    speak(reply);
 
     return (
         <div id="play" className="h-80 py-14 px-6 rounded-xl border-4 border-pink-200 flex flex-col justify-evenly">
