@@ -11,7 +11,18 @@ import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import { MultiplyTable } from "./MultiplyTable";
 
-export type appState = { text: string, eq: string, isRightAnswer: boolean, isAnswered: boolean, answer: string, gif: string, level: string, complexity: string, score: number, attempt: number }
+export type appState = {
+  text: string;
+  eq: string;
+  isRightAnswer: boolean;
+  isAnswered: boolean;
+  answer: string;
+  gif: string;
+  level: string;
+  complexity: string;
+  score: number;
+  attempt: number;
+};
 
 function reducer(state: appState, action) {
   if (action.type === "rightAnswer") {
@@ -27,7 +38,7 @@ function reducer(state: appState, action) {
     };
   }
   if (action.type === "nextStep") {
-    const quest = initQuestion(state.level, state.complexity);
+    const quest = initQuestion(state.level, state.complexity) || { equation: '2+2', answer: '4' };
     return {
       ...state,
       text: "Скажи же, сколько будет?",
@@ -53,7 +64,7 @@ function reducer(state: appState, action) {
 
   if (action.type === "easyLevel") {
     if (state.level !== 'easy') {
-      const quest = initQuestion('easy', state.complexity);
+      const quest = initQuestion('easy', state.complexity) || { equation: '2+2', answer: '4' };
       return {
         ...state,
         text: "Скажи же, сколько будет?",
@@ -70,7 +81,7 @@ function reducer(state: appState, action) {
   if (action.type === "complexLevel") {
 
     if (state.level !== 'complex') {
-      const quest = initQuestion('complex', state.complexity);
+      const quest = initQuestion('complex', state.complexity) || { equation: '2+2', answer: '4' };
       return {
         ...state,
         text: "Скажи же, сколько будет?",
@@ -86,7 +97,7 @@ function reducer(state: appState, action) {
 
   if (action.type === "multiplyTable") {
     if (state.level !== 'multiply') {
-      const quest = initQuestion('multiply', state.complexity);
+      const quest = initQuestion('multiply', state.complexity) || { equation: '2+2', answer: '4' };
       return {
         ...state,
         text: "Скажи же, сколько будет?",
@@ -108,7 +119,7 @@ function reducer(state: appState, action) {
   }
 
   if (action.type === "reset") {        
-    const quest = initQuestion(state.level, state.complexity);
+    const quest = initQuestion(state.level, state.complexity) || { equation: '2+2', answer: '4' };
     return {
       ...state,
       eq: quest.equation,
