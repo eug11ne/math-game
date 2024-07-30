@@ -6,11 +6,12 @@ import { Header } from "./Header";
 import { InputArea } from "./InputArea";
 import { LevelSelector } from "./LevelSelector";
 import { Stars } from "./Stars";
+import { Summary } from "./Summary";
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import { MultiplyTable } from "./MultiplyTable";
 
-type appState = { text: string, eq: string, isRightAnswer: boolean, answer: string, gif: string, level: string, complexity: string }
+export type appState = { text: string, eq: string, isRightAnswer: boolean, isAnswered: boolean, answer: string, gif: string, level: string, complexity: string, score: number, attempt: number }
 
 function reducer(state: appState, action) {
   if (action.type === "rightAnswer") {
@@ -19,7 +20,10 @@ function reducer(state: appState, action) {
       text: "Да, все правильно посчитал! СуперМегаВычислитель согласен с тобой!",
       eq: action.payload,
       isRightAnswer: true,
-      gif: happy
+      isAnswered: true,
+      gif: happy,
+      score: state.score + 1,
+      attempt: state.attempt + 1,
     };
   }
   if (action.type === "nextStep") {
@@ -29,6 +33,7 @@ function reducer(state: appState, action) {
       text: "Скажи же, сколько будет?",
       eq: quest.equation,
       isRightAnswer: false,
+      isAnswered: false,
       answer: quest.answer.toString(),
       gif: puzzled
     };
@@ -37,8 +42,12 @@ function reducer(state: appState, action) {
   if (action.type === "wrongAnswer") {
     return {
       ...state,
-      text: "Не угадал, попробуй еще раз.",
-      gif: sad
+      text: "Увы, это неправильный ответ. Надо было думать более хорошо!",
+      eq: action.payload,
+      isRightAnswer: false,
+      isAnswered: true,
+      gif: sad,
+      attempt: state.attempt + 1,
     }
   }
 
@@ -97,7 +106,20 @@ function reducer(state: appState, action) {
       complexity: action.payload
     }
   }
-  
+
+  if (action.type === "reset") {        
+    const quest = initQuestion(state.level, state.complexity);
+    return {
+      ...state,
+      eq: quest.equation,
+      isRightAnswer: false,
+      isAnswered: false,
+      answer: quest.answer.toString(),
+      gif: puzzled,
+      score: 0,
+      attempt: 0
+    }
+  }  
 
 throw Error('Unknown action.');
 }
@@ -106,15 +128,19 @@ export function App() {
 
 
   const [level, setLevel] = useState('easy');
-  const quest = initQuestion('easy');
+  const [attempt, startAgain] = useState(0);
+  const [quest, setQuest] = useState(initQuestion('easy') || { equation: '2+2', answer: '4' })  
   const [state, dispatch] = useReducer(reducer, {
     text: "Сколько будет?",
     isRightAnswer: false,
+    isAnswered: false,
     eq: quest.equation,
     answer: quest.answer.toString(),
     gif: puzzled,
     level: 'easy',
-    complexity: '1'
+    complexity: '1',
+    score: 0,
+    attempt: 0,
   });
 
 
@@ -128,7 +154,7 @@ export function App() {
       speak("Вот это да, молодец, твой юный мозг нашел правильный ответ! Красавчик!")
     }
     else {
-      dispatch({ type: 'wrongAnswer' });
+      dispatch({ type: 'wrongAnswer', payload: `${state.eq}=${state.answer}` });
       speak("Ха ха ха, малыш-глупыш, не угадал!");
     }
   }
@@ -151,7 +177,11 @@ export function App() {
     dispatch({ type: 'changeStar', payload: value});
   }
 
-  return (
+  const resetGame = () => {    
+    dispatch({ type: 'reset' });
+  }
+
+  return state.attempt < 5 ? (
     <div className="px-4 py-2 object-center">
       <Header />
       <div id="question" className="flex relative bg-yellow-100 rounded-lg border-4 border-pink-200 h-24">
@@ -160,10 +190,25 @@ export function App() {
         <LevelSelector level={state.level} onEasy={handleEasyLevel} onComplex={handleComplexLevel} onMultiply={handleMultiply} />
         <Stars complexity={state.complexity} onStar={handleStar}/>
       </div>
-      <InputArea data={{ equation: state.eq, isRight: state.isRightAnswer }} answerHandler={handleAnswer} toggleRight={handleNextButton} />
+      <InputArea data={{ equation: state.eq, isRight: state.isRightAnswer, isAnswered: state.isAnswered }} answerHandler={handleAnswer} toggleRight={handleNextButton} />
       
     </div>
-    )
+    ) :
+
+    (
+      <div className="px-4 py-2 object-center">
+        <Header />
+        <div id="question" className="flex relative bg-yellow-100 rounded-lg border-4 border-pink-200 h-24">
+          <img src={state.gif} alt="gif" />
+          <p className="flex py-6 px-4" >{state.text}</p>
+          <LevelSelector level={state.level} onEasy={handleEasyLevel} onComplex={handleComplexLevel} onMultiply={handleMultiply} />
+          <Stars complexity={state.complexity} onStar={handleStar}/>
+        </div>
+        <Summary score={state.score} resetGame={resetGame}/>
+        
+      </div>
+      )
+
 }
 
 function initQuestion(level = 'easy', complexity = '1') {
