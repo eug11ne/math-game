@@ -7,7 +7,7 @@ import { DndSource } from "./DndSource";
 import { MultiplyTable } from "./MultiplyTable";
 
 type InputAreaProps = {
-    data: {equation: string, isRight: boolean},
+    data: {equation: string, isRight: boolean, isAnswered: boolean},
     answerHandler: (e: string) => void,    
     toggleRight: () => void
 };
@@ -28,7 +28,7 @@ export const InputArea = ({ data, answerHandler, toggleRight }: InputAreaProps) 
         setValue("");
     }
 
-    return !data.isRight ?
+    return !data.isAnswered ?
         (
         <div id="play" className="h-80 py-14 px-6 rounded-xl border-4 border-pink-200 flex flex-col justify-evenly">
             
@@ -43,8 +43,8 @@ export const InputArea = ({ data, answerHandler, toggleRight }: InputAreaProps) 
         )
         :
         (<div id="win" className='h-80 py-14 px-6 rounded-xl border-4 border-pink-200 pyro flex flex-col justify-evenly'> 
-            <div className="before" />
-            <div className="after" />            
+            <div className={`${data.isRight?"before":''}`} />
+            <div className={`${data.isRight?"after":''}`} />            
             <Equation equation={data.equation} size='60'/>
             <div className="flex flex-row">
             <button type="button" onClick={toggleRight} className="bg-green-200 rounded-l-full rounded-r-full px-6 ">Дальше</button>
