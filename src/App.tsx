@@ -1,12 +1,16 @@
 import puzzled from "../static/puzzled.gif";
 import happy from "../static/happy.gif";
 import sad from "../static/sad.gif";
+//import glupish from "../static/glupish.mp3";
 import { useReducer, useState, MouseEvent } from "react";
 import { Header } from "./Header";
 import { InputArea } from "./InputArea";
 import { LevelSelector } from "./LevelSelector";
 import { Stars } from "./Stars";
 import { Summary } from "./Summary";
+import { Component } from "react";
+import glupish from "url:../static/glupish-short.mp3"
+
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import { MultiplyTable } from "./MultiplyTable";
@@ -135,6 +139,11 @@ function reducer(state: appState, action) {
 throw Error('Unknown action.');
 }
 
+export function playSound() {
+  const audio = new Audio(glupish);
+  audio.play();
+}
+
 export function App() {
 
 
@@ -166,7 +175,8 @@ export function App() {
     }
     else {
       dispatch({ type: 'wrongAnswer', payload: `${state.eq}=${state.answer}` });
-      speak("Ха ха ха, малыш-глупыш, не угадал!");
+      //speak("Ха ха ха, малыш-глупыш, не угадал!");
+      playSound();
     }
   }
 
@@ -265,5 +275,6 @@ export function speak(words: string) {
   utterance.voice = voices[0];
   utterance.rate = 1.5;
 
-  speechSynthesis.speak(utterance);
+  speechSynthesis.speak(utterance);  
 }
+
