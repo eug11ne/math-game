@@ -2,6 +2,8 @@
 import { Start } from "./Start";
 import { VerySimple } from "./VerySimple";
 import { useAppStore } from "./baseLogic";
+import './styles/fire.css';
+import './styles/index.css';
 
 
 
