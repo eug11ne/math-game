@@ -9,7 +9,7 @@ export const Levels = () => {
   return (
     <div className="flex justify-center items-center gap-4 w-full">
       <div className="">Уровень выбирается тут:</div>
-      <div className="flex h-20 border-teal-200">
+      <div className="flex border-teal-200">
         <img
           src={lilpikachu}
           id="veryeasy"
