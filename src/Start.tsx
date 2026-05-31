@@ -12,9 +12,9 @@ export const Start = () => {
       <Header />
       <div
         id="question"
-        className="flex relative bg-yellow-100 rounded-lg border-4 border-pink-200 h-24"
-      ><img src={robot} alt="gif" />
-        <p className="flex py-6 px-4">
+        className="flex relative bg-yellow-100 rounded-lg border-4 border-pink-200 items-center gap-10"
+      ><img src={robot} alt="gif" className="pictures"/>
+        <p className="flex text-center align-middle ">
           Итак, человеческий детеныш, выбери уровень чуть ниже своего
           невежества и попробуй угадать правильные ответы!
         </p>
@@ -29,7 +29,7 @@ export const Start = () => {
       ><Stars/> </div>
       <div
         id="start"
-        className="flex justify-center bg-green-100 rounded-lg border-4 border-pink-200 h-24 items-center w-xl"
+        className="flex justify-center bg-green-100 rounded-lg border-4 border-pink-200 items-center w-xl"
       ><button type="button" onClick={()=> dispatch('Reset')} className="bg-blue-300 border-2 border-pink-200 rounded-l-full rounded-r-full px-6 h-10">Начать проигрывать</button></div>
       
     </>
