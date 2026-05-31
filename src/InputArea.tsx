@@ -3,10 +3,6 @@ import glupish from "./../static/glupish-short.mp3";
 import win from "./../static/win.mp3";
 import { Equation } from "./Equation";
 import "../static/fire.css";
-import { Stars } from "./Stars";
-import { Palette } from "./Palette";
-import { DndSource } from "./DndSource";
-import { MultiplyTable } from "./MultiplyTable";
 import { useAppStore } from "./baseLogic";
 import { useEffect, useRef } from 'react';
 
