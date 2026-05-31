@@ -1,19 +1,33 @@
-
+import { PageLoader } from "./PageLoader/pageLoader";
+import { useState, useEffect } from "react";
 import { Start } from "./Start";
 import { VerySimple } from "./VerySimple";
 import { useAppStore } from "./baseLogic";
-import './styles/fire.css';
-import './styles/index.css';
-
-
+import "./styles/fire.css";
+import "./styles/index.css";
 
 export function App() {
-  const store = useAppStore(); 
-  
+  const store = useAppStore();
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    if (document.readyState === "complete") {
+      setIsLoading(false);
+      return;
+    }
+
+    const handleLoad = () => setIsLoading(false);
+    window.addEventListener("load", handleLoad);
+
+    return () => window.removeEventListener("load", handleLoad);
+  }, [isLoading]);
+
   return (
     <>
-      {store.attempt === 0 && <Start />}
-      {store.attempt > 0 && <VerySimple />}
+      <PageLoader loading={isLoading}>
+        {store.attempt === 0 && <Start />}
+        {store.attempt > 0 && <VerySimple />}
+      </PageLoader>
     </>
   );
 
