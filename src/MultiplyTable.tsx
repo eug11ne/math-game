@@ -1,4 +1,3 @@
-import { KeyboardEvent, ChangeEvent, useState } from "react";
 import { Equation } from "./Equation";
 
 type MultiplyTableProps = {
