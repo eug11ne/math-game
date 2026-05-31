@@ -7,8 +7,9 @@ export const Stars = () => {
   const { complexity, setComplexity } = useAppStore();
 
   return (
-    <div className="flex justify-center items-center gap-4 w-full">
+    <div id="stars" className="flex justify-center items-center gap-4 w-full">
       <div className="">А тут выбирается сложность:</div>
+      <div className="flex">
       <img
         src={brightStar}
         id="1"
@@ -33,6 +34,7 @@ export const Stars = () => {
         title="Гений"
         className="h-20 cursor-pointer"
       />
+      </div>
     </div>
   );
 };
