@@ -1,0 +1,37 @@
+import { Header } from "./Header";
+import { Levels } from "./Levels";
+import { Stars } from "./Stars";
+import robot from './../static/robot.gif'
+import { useAppStore } from "./baseLogic";
+
+export const Start = () => {
+    const { dispatch } = useAppStore();
+  
+    return (
+    <>
+      <Header />
+      <div
+        id="question"
+        className="flex relative bg-yellow-100 rounded-lg border-4 border-pink-200 h-24"
+      ><img src={robot} alt="gif" />
+        <p className="flex py-6 px-4">
+          Итак, человеческий детеныш, выбери уровень чуть ниже своего
+          невежества и попробуй угадать правильные ответы!
+        </p>
+      </div>
+      <div
+        id="level"
+        className="flex relative bg-red-100 rounded-lg border-4 border-pink-200 h-24"
+      ><Levels/> </div>
+      <div
+        id="stars"
+        className="flex relative bg-yellow-100 rounded-lg border-4 border-pink-200 h-24 w-xl"
+      ><Stars/> </div>
+      <div
+        id="start"
+        className="flex justify-center bg-green-100 rounded-lg border-4 border-pink-200 h-24 items-center w-xl"
+      ><button type="button" onClick={()=> dispatch('Reset')} className="bg-blue-300 border-2 border-pink-200 rounded-l-full rounded-r-full px-6 h-10">Начать проигрывать</button></div>
+      
+    </>
+  );
+};

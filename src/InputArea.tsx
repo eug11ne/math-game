@@ -1,55 +1,111 @@
 import { KeyboardEvent, ChangeEvent, useState } from "react";
+import glupish from "./../static/glupish-short.mp3";
+import win from "./../static/win.mp3";
 import { Equation } from "./Equation";
-import "../static/fire.css"
-import { Stars } from "./Stars";
-import { Palette } from "./Palette";
-import { DndSource } from "./DndSource";
-import { MultiplyTable } from "./MultiplyTable";
+import "../static/fire.css";
+import { useAppStore } from "./baseLogic";
+import { useEffect, useRef } from 'react';
 
 type InputAreaProps = {
-    data: {equation: string, isRight: boolean, isAnswered: boolean},
-    answerHandler: (e: string) => void,    
-    toggleRight: () => void
+  data: { equation: string; answer: number };
+  answerHandler: (e: string) => void;
+  toggleRight?: () => void;
 };
 
-export const InputArea = ({ data, answerHandler, toggleRight }: InputAreaProps) => {
-    const [value, setValue] = useState("");
-    const handleOnChange = (e: ChangeEvent<HTMLInputElement>) => {
-        setValue(e.target.value);
-    }
-    const handleOnKeyUp = (e: KeyboardEvent) => {
-        if (e.key === "Enter") {
-            answerHandler(value);
-            setValue("");
-        }
-    }
-    const handleOnClick = () => {
-        answerHandler(value);
-        setValue("");
-    }
+export const InputArea = ({
+  data,
+  answerHandler,
+  toggleRight,
+}: InputAreaProps) => {
+  const store = useAppStore();
+  const [value, setValue] = useState("");
+  const [isAnswered, setIsAnswered] = useState(false);
+  const [isRight, setIsRight] = useState(false);
+  const inputRef = useRef<HTMLInputElement>(null);
+  const handleOnChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setValue(e.target.value);
+  };
+  
+  useEffect(() => {    
+    inputRef.current?.focus();
+  }, []); 
 
-    return !data.isAnswered ?
-        (
-        <div id="play" className="h-80 py-14 px-6 rounded-xl border-4 border-pink-200 flex flex-col justify-evenly">
-            
-            <Equation equation={data.equation} size='60'/> 
-            
-            <div className="flex flex-row">
-            <input value={value} onChange={handleOnChange} onKeyUp={handleOnKeyUp} className="bg-white rounded-l-full px-2 focus:outline-none" />
-            <button type="button" onClick={handleOnClick} className="bg-green-200 rounded-r-full px-4">Дать ответ</button>            
-            </div>
-        </div>
-        
-        )
-        :
-        (<div id="win" className='h-80 py-14 px-6 rounded-xl border-4 border-pink-200 pyro flex flex-col justify-evenly'> 
-            <div className={`${data.isRight?"before":''}`} />
-            <div className={`${data.isRight?"after":''}`} />            
-            <Equation equation={data.equation} size='60'/>
-            <div className="flex flex-row">
-            <button type="button" onClick={toggleRight} className="bg-green-200 rounded-l-full rounded-r-full px-6 ">Дальше</button>
-            </div>
-        </div>)
-        
+  const handleOnKeyUp = (e: KeyboardEvent) => {
+    if (e.key === "Enter") {
+      if (data.answer !== Number(value)) {
+        playSound(glupish);
+      } else {
+        playSound(win);
+      }
+      answerHandler(value);
+      setValue("");
+    }
+  };
+  const handleOnClick = () => {
+    if (data.answer !== Number(value)) {
+      playSound(glupish);
+    } else {
+      playSound(win);
+    }
+    answerHandler(value);
+    setValue("");
+  };
+
+  const handleAnswer = () => {
+    if (value === data.answer.toString()) {
+      setIsRight(true);
+      setIsAnswered(true);
+    }
+  };
+
+  
+  return !store.isAnswered ? (
+    <div
+      id="play"
+      className="h-80 py-14 px-6 rounded-xl border-4 border-pink-200 flex flex-col justify-evenly"
+    >
+      <Equation equation={store.equation} size="60" />
+
+      <div className="flex flex-row">
+        <input
+          ref={inputRef}
+          value={value}
+          onChange={handleOnChange}
+          onKeyUp={handleOnKeyUp}
+          placeholder="Да-да?"
+          className="bg-white rounded-l-full px-2 focus:outline-none"
+        />
+        <button
+          type="button"
+          onClick={handleOnClick}
+          className="bg-green-200 rounded-r-full px-4"
+        >
+          Дать ответ
+        </button>
+      </div>
+    </div>
+  ) : (
+    <div
+      id="win"
+      className="h-80 py-14 px-6 rounded-xl border-4 border-pink-200 pyro flex flex-col justify-evenly"
+    >
+      <div className={`${store.isRightAnswer ? "before" : ""}`} />
+      <div className={`${store.isRightAnswer ? "after" : ""}`} />
+      <Equation equation={store.equation} size="60" />
+      <div className="flex flex-row">
+        <button
+          type="button"
+          onClick={() => store.dispatch("NextStep")}
+          className="bg-green-200 rounded-l-full rounded-r-full px-6 "
+        >
+          Дальше
+        </button>
+      </div>
+    </div>
+  );
+};
+
+export function playSound(audioFile: string) {
+  const audio = new Audio(audioFile);
+  audio.play();
 }
-

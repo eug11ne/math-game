@@ -13,6 +13,7 @@ import pngMinus from "../static/numbers/minus.png";
 import pngMultiply from "../static/numbers/multiply.png";
 import pngDivide from "../static/numbers/divide.png";
 import pngEquals from "../static/numbers/equals.png";
+import pngQuestion from "../static/numbers/question.png";
 
 const pngFiles = [png0, png1, png2, png3, png4, png5, png6, png7, png8, png9];
 
@@ -32,11 +33,13 @@ export const Equation = ({ equation, size='60' }: { equation: string, size: stri
         if (el === '*') imgSrc = pngMultiply;
 
         if (el === '/') imgSrc = pngDivide;
+        
+        if (el === '?') imgSrc = pngQuestion;
 
         // biome-ignore lint/suspicious/noArrayIndexKey: <explanation>
         return <img src={imgSrc} width={Number(size)} height={Number(size)} alt="number" key={index} id={index.toString()} />
 
     });
 
-    return (<div className="flex py-6">{listIms}</div>);
+    return (<div className="numbers flex py-6">{listIms}</div>);
 }
