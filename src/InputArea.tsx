@@ -2,7 +2,6 @@ import { KeyboardEvent, ChangeEvent, useState } from "react";
 import glupish from "./../static/glupish-short.mp3";
 import win from "./../static/win.mp3";
 import { Equation } from "./Equation";
-import "../static/fire.css";
 import { useAppStore } from "./baseLogic";
 import { useEffect, useRef } from 'react';
 
@@ -62,7 +61,7 @@ export const InputArea = ({
   return !store.isAnswered ? (
     <div
       id="play"
-      className="h-80 py-14 px-6 rounded-xl border-4 border-pink-200 flex flex-col justify-evenly"
+      className="py-14 px-6 rounded-xl border-4 border-pink-200 flex flex-col justify-evenly"
     >
       <Equation equation={store.equation} size="60" />
 

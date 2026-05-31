@@ -12,7 +12,7 @@ export const Start = () => {
       <Header />
       <div
         id="question"
-        className="flex relative bg-yellow-100 rounded-lg border-4 border-pink-200 items-center gap-10"
+        className="flex bg-yellow-100 rounded-lg border-4 border-pink-200 items-center gap-10"
       ><img src={robot} alt="gif" className="pictures"/>
         <p className="flex text-center align-middle ">
           Итак, человеческий детеныш, выбери уровень чуть ниже своего
@@ -21,11 +21,11 @@ export const Start = () => {
       </div>
       <div
         id="level"
-        className="flex relative bg-red-100 rounded-lg border-4 border-pink-200 h-24"
+        className="flex bg-red-100 rounded-lg border-4 border-pink-200"
       ><Levels/> </div>
       <div
         id="stars"
-        className="flex relative bg-yellow-100 rounded-lg border-4 border-pink-200 h-24 w-xl"
+        className="flex bg-yellow-100 rounded-lg border-4 border-pink-200  w-xl"
       ><Stars/> </div>
       <div
         id="start"

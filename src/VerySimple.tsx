@@ -19,8 +19,8 @@ export const VerySimple = () => {
     <>
       <div className="px-4 py-2 object-center">
       <Header />
-      <div id="question" className="flex relative bg-yellow-100 rounded-lg border-4 border-pink-200 h-24">
-        <img src={store.gif} alt="gif" />
+      <div id="question" className="flex relative bg-yellow-100 rounded-lg border-4 border-pink-200">
+        <img className="pictures" src={store.gif} alt="gif" />
         <p className="flex py-6 px-4" >{store.text}</p>       
         
       </div>     

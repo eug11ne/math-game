@@ -7,7 +7,7 @@ import { useAppStore } from "./baseLogic";
 export const Levels = () => {
   const { level, setLevel } = useAppStore();
   return (
-    <div className="flex justify-center items-center gap-4 w-full">
+    <div id='level' className="flex justify-center items-center gap-4 w-full h-auto">
       <div className="">Уровень выбирается тут:</div>
       <div className="flex border-teal-200">
         <img

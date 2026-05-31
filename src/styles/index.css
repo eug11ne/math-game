@@ -7,7 +7,8 @@ html, #app {
     margin: 0 auto;    
     background-image: url("./../../static/space.jpg");
     background-size: 100%;
-    min-width: 750px;
+    min-width: 400px;
+    height: auto;
 }
 
 #play {
@@ -68,7 +69,7 @@ html, #app {
 
 .pictures {
     height: 150px;
-    width: 150px;
+    
 }
 
 @font-face {
@@ -83,6 +84,10 @@ html, #app {
 }
 
 @media (max-width: 767px) {
+    #level, #stars {
+        flex-direction: column;
+        flex-wrap: wrap;
+    }
 
 }
     

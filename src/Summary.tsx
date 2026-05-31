@@ -52,9 +52,9 @@ export const Summary = ({ score, resetGame }: SummaryAreaProps) => {
   return (
     <div
       id="play"
-      className="h-80 py-14 px-6 rounded-xl border-4 border-pink-200 flex flex-col justify-evenly"
+      className="py-14 px-6 rounded-xl border-4 border-pink-200 flex flex-col justify-evenly"
     >
-      <div className="text-xl h-60 w-2/3 py-14 px-6 rounded-xl border-4 bg-white border-pink-200 flex flex-col justify-evenly">
+      <div className="text-xl w-2/3 py-14 px-6 rounded-xl border-4 bg-white border-pink-200 flex flex-col justify-evenly">
         <p>{howmuch}</p>
         <p>{reply}</p>
       </div>
