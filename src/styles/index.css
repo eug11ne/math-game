@@ -5,7 +5,7 @@
 html, #app {
     
     margin: 0 auto;    
-    background-image: url("../static/space.jpg");
+    background-image: url("./../../static/space.jpg");
     background-size: 100%;
 }
 
@@ -13,13 +13,13 @@ html, #app {
     max-width: 1200px;
     
     margin: 10px auto;
-    background-image: url("../static/jungle.jpg")
+    background-image: url("./../../static/jungle.jpg")
 }
 
 #win {
     margin: 10px auto;
     max-width: 1200px;
-    background-image: url("../static/jungle.jpg");
+    background-image: url("./../../static/jungle.jpg");
     
 }
 
@@ -28,7 +28,7 @@ html, #app {
     margin: 10px auto;
     font-family: Delicious;
     font-size: 26px;    
-    background-image: url("../static/yellow.png");
+    background-image: url("./../../static/yellow.png");
     background-size: cover;
 }
 
@@ -38,7 +38,7 @@ html, #app {
     margin: 10px auto;
     font-family: Delicious;
     font-size: 26px;    
-    background-image: url("../static/red1.png");
+    background-image: url("./../../static/red1.png");
     background-size: cover;
 }
 
@@ -47,7 +47,7 @@ html, #app {
     margin: 10px auto;
     font-family: Delicious;
     font-size: 22px;    
-    background-image: url("../static/green.png");
+    background-image: url("./../../static/green.png");
     background-size: cover;
 }
 
@@ -55,23 +55,23 @@ html, #app {
 #header {
     max-width: 1200px;
     margin: 10px auto;
-    background-image: url("../static/ai.png")
+    background-image: url("./../../static/ai.png")
 }
 
 #question {
     max-width: 1200px;
     margin: 10px auto;
     padding-left: 0;
-    background-image: url("../static/lemons.jpg")
+    background-image: url("./../../static/lemons.jpg")
 }
 
 @font-face {
     font-family: Delicious;
-    src: url('../static/fonts/cat.ttf');
+    src: url('./../../static/fonts/cat.ttf');
 }
 
 @font-face {
     font-family: Delicious;
     font-weight: bold;
-    src: url('../static/fonts/cat.ttf');
+    src: url('./../../static/fonts/cat.ttf');
 }
