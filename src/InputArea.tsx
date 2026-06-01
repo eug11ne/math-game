@@ -27,7 +27,7 @@ export const InputArea = ({
   
   useEffect(() => {    
     inputRef.current?.focus();
-  }, []); 
+  }, [data.equation]); 
 
   const handleOnKeyUp = (e: KeyboardEvent) => {
     if (e.key === "Enter") {

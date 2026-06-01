@@ -16,7 +16,7 @@ export const Levels = () => {
           alt="gif"
           onClick={() => setLevel("veryeasy")}
           title="Детский сад"
-          className={`rounded-xl cursor-pointer h-20 border-4 ${level === "veryeasy" ? "border-teal-200" : ""} hover:border-teal-100`}
+          className={`rounded-xl cursor-pointer h-20 border-4 ${level === "veryeasy" ? "border-teal-400" : ""} hover:border-teal-400`}
         />
         <img
           src={pikachu}
@@ -24,7 +24,7 @@ export const Levels = () => {
           alt="gif"
           onClick={() => setLevel("easy")}
           title="Первый класс"
-          className={`rounded-xl cursor-pointer h-20 border-4 ${level === "easy" ? "border-teal-200" : ""} hover:border-teal-100`}
+          className={`rounded-xl cursor-pointer h-20 border-4 ${level === "easy" ? "border-teal-400" : ""} hover:border-teal-400`}
         />
 
         <img
@@ -33,7 +33,7 @@ export const Levels = () => {
           alt="gif"
           title="Второй класс"
           onClick={() => setLevel("complex")}
-          className={`rounded-xl cursor-pointer h-20 border-4  hover:border-teal-100 ${level === "complex" ? "border-teal-200" : ""}`}
+          className={`rounded-xl cursor-pointer h-20 border-4  hover:border-teal-400 ${level === "complex" ? "border-teal-400" : ""}`}
         />
         <img
           src={multiply}
@@ -41,7 +41,7 @@ export const Levels = () => {
           alt="gif"
           title="Таблица умножения"
           onClick={() => setLevel("multiply")}
-          className={`rounded-xl cursor-pointer h-20 border-4  hover:border-teal-100 ${level === "multiply" ? "border-teal-200" : ""}`}
+          className={`rounded-xl cursor-pointer h-20 border-4  hover:border-teal-400 ${level === "multiply" ? "border-teal-400" : ""}`}
         />
       </div>
     </div>
