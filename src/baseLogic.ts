@@ -204,7 +204,7 @@ function initQuestion(level = "easy", complexity = 1) {
       const znad = z * d;
       const sign1 = Math.floor(Math.random() * 2);
       answer = sign1 ? x * y + z : x * y - z;
-      equation = sign1 ? `${x}*${y}+${znad}/${d}` : `${x}*${y}-${znad}/${d}=?`;
+      equation = sign1 ? `${x}*${y}+${znad}/${d}=?` : `${x}*${y}-${znad}/${d}=?`;
     }
     return { equation, answer };
   }
